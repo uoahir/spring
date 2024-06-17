@@ -41,6 +41,8 @@ public class MemberController {
 		
 		String page ="";
 		
+//		if(page.equals("")) throw new RuntimeException();
+		
 		System.out.println(m);
 		if(m!=null) {
 //			session.setAttribute("loginMember", m);

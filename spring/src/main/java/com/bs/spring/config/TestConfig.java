@@ -13,7 +13,7 @@ import org.springframework.core.annotation.Order;
 import com.bs.spring.beantest.BeanTest;
 import com.bs.spring.beantest.Food;
 import com.bs.spring.beantest.Person;
-import com.google.gson.Gson;
+//import com.google.gson.Gson;
 
 @Configuration//하나의 설정파일 -> springbean configuration.xml과 동일
 @ComponentScan(basePackages = "com.bs.spring",

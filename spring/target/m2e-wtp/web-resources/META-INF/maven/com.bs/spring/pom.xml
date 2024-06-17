@@ -131,11 +131,11 @@
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
-		<!--<dependency>
+		<!-- <dependency>
 		    <groupId>com.google.code.gson</groupId>
 		    <artifactId>gson</artifactId>
 		    <version>2.10.1</version>
-		</dependency>-->
+		</dependency> -->
 		<!-- 
 			DataBase 에 연결하기 위한 라이브러리 가져오기
 			1. jdbc : ojdbc11

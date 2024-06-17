@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="memo">
+	
+	<select id="memolist" resultType="memo">
+		SELECT * FROM MEMO ORDER BY MEMONO
+	</select>
+	
+	<insert parameterType="memo" id="insertmemo">
+		INSERT INTO MEMO VALUES(SEQ_MEMONO.NEXTVAL, #{memo}, #{password}, DEFAULT)
+	</insert>
+	
+	<select id="selectMemoCount" resultType="_int">
+		SELECT COUNT(*) FROM MEMO
+	</select>
+  
+</mapper>

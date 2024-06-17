@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+
+
+	<!-- 
+
+		DB 접속을 위한 bean 등록하기 
+		1. Data 연결정보를 저장하는 클래스 -> BasicDataSource 클래스
+		2. SqlSession 을 생성해주는 클래스(환경설정) -> SqlSessionFactoryBean 클래스 : mybatis-spring에서 제공
+		3. SqlSession클래스 -> SqlSessionTemplate클래스
+	-->
+	<bean id="dataSource" 
+		  class="org.apache.commons.dbcp.BasicDataSource"
+	      destroy-method="close"> <!-- basicdatasorce는 항상 닫아줘야해서 ~ destroy-method에 close 설정해줌  -->
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+		<property name="username" value="spring"/>
+		<property name="password" value="spring"/>
+	</bean>
+	<bean id="proxyDataSource" class = "net.sf.log4jdbc.Log4jdbcProxyDataSource">
+		<constructor-arg index="0" ref="dataSource" />
+		<property name="logFormatter">
+			<bean class="net.sf.log4jdbc.tools.Log4JdbcCustomFormatter">
+				<property name="loggingType" value="MULTI_LINE"/>
+				<property name="sqlPrefix" value="[SQL]"/>
+			</bean>
+		</property>
+	</bean>
+	<bean id="sqlSessionFactory"
+	      class="org.mybatis.spring.SqlSessionFactoryBean">	
+	    <property name="dataSource" ref="proxyDataSource"/>
+	    <property name="configLocation" value="classpath:mybatis-config.xml"/>
+	    <property name="mapperLocations" value="classpath:mappers/**/*.xml"/>
+	</bean>
+	<bean id="sqlSessionTemplate"
+	      class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory"/>
+	</bean>
+
+</beans>		

@@ -81,6 +81,18 @@ public class AnnoLoggerAspect {
 		// 지역변수를 전 후에 공유할 수 있음 
 		
 		// 전에 대한 로직, 후에 대한 로직은 ProceedingJoinPoint 클래스에서 제공하는 proceed() 메소드를 호출한 라인을 기준으로 나눔
+
+		// proceed() 메소드 호출 전 라인 : before 로직
+		// proceed() 메소드 호출 후 라인 : after 로직
+		// proceed() 메소드 호출하면 Object 반환
+		
+		log.debug("==== around before log ====");
+		
+		Object obj = jp.proceed();
+		
+		log.debug("==== around after log ====");
+		
+		return obj;
 	}
 	
 	// 로그를 표시할 때, aop 로 푷시할 수 있음
